@@ -1,0 +1,18 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SampleApp"
+        xmlns:WPF_Neumorphism_Plus="clr-namespace:WPF_Neumorphism_Plus;assembly=WPF_Neumorphism_Plus" x:Class="SampleApp.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Background="#FFDDDDDD">
+    <Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="82,72,0,0" VerticalAlignment="Top" Height="119" Width="223" BorderBrush="#FFDDDDDD">
+            <Button.Effect>
+                <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader PrimaryColor="Black" OffsetX="3" OffsetY="2" SecondaryColor="#77FFFFFF" RenderingMode="0"/>
+            </Button.Effect>
+        </Button>
+
+    </Grid>
+</Window>

@@ -2,3 +2,6 @@ bin/
 Source/.vs
 Source/WPF_Neumorphism_Plus/obj/
 Source/WPF_Neumorphism_Plus/bin/
+SampleApp/.vs
+SampleApp/SampleApp/obj/
+SampleApp/SampleApp/bin/
