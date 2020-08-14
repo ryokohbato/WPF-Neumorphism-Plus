@@ -3,6 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <Company />
+    <Authors>ryokohbato</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Copyright>(c) 2020 ryokohbato</Copyright>
+    <RepositoryUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</RepositoryUrl>
+    <PackageTags>wpf ueumorphism shadow ui</PackageTags>
+    <PackageReleaseNotes>ver 1.0.0 released.</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</PackageProjectUrl>
+    <Description>Enjoy Neumorphism on WPF!</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -11,6 +20,10 @@
 
   <ItemGroup>
     <None Remove="Effect\Effect.ps" />
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
