@@ -126,10 +126,27 @@ float4 outerShadowCalculator(float2 uv :TEXCOORD, float4 ShadowColor, float Offs
     return color;
 }
 
+float4 innerShadowCalculator(float2 uv :TEXCOORD) :COLOR
+{
+    float4 color = tex2D(Input, uv);
+
+    return color;
+}
+
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
-    float4 color_1 = outerShadowCalculator(uv, PrimaryColor, 1);
-    float4 color_2 = outerShadowCalculator(uv, SecondaryColor, -1);
+    if (Inset == 0)
+    {
+        float4 color_1 = outerShadowCalculator(uv, PrimaryColor, 1);
+        float4 color_2 = outerShadowCalculator(uv, SecondaryColor, -1);
 
-    return (color_1 + color_2) / 2;
+        return (color_1 + color_2) / 2;
+    }
+    else
+    {
+        float4 color_1 = innerShadowCalculator(uv);
+        float4 color_2 = innerShadowCalculator(uv);
+
+        return (color_1 + color_2) / 2;
+    }
 }
