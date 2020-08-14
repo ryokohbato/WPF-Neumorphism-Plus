@@ -75,7 +75,7 @@ namespace WPF_Neumorphism_Plus
                     "OffsetX",
                     typeof(double),
                     typeof(Neumorphism_Plus_Shader),
-                    new UIPropertyMetadata(0.0,
+                    new UIPropertyMetadata(5.0,
                         (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
                         {
                             OffsetXRegisterCallback(d, e);
@@ -121,7 +121,7 @@ namespace WPF_Neumorphism_Plus
                     "OffsetY",
                     typeof(double),
                     typeof(Neumorphism_Plus_Shader),
-                    new UIPropertyMetadata(0.0,
+                    new UIPropertyMetadata(3.0,
                         (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
                         {
                             OffsetYRegisterCallback(d, e);
@@ -213,7 +213,7 @@ namespace WPF_Neumorphism_Plus
                     "SpreadRadius",
                     typeof(double),
                     typeof(Neumorphism_Plus_Shader),
-                    new UIPropertyMetadata(10.0,
+                    new UIPropertyMetadata(7.0,
                         (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
                         {
                             SpreadRadiusRegisterCallback(d, e);
@@ -259,7 +259,7 @@ namespace WPF_Neumorphism_Plus
                 "PrimaryColor",
                 typeof(Color),
                 typeof(Neumorphism_Plus_Shader),
-                new UIPropertyMetadata(Colors.Pink, PixelShaderConstantCallback(4))
+                new UIPropertyMetadata(Colors.Black, PixelShaderConstantCallback(4))
             );
 
         ////////////////////////   SecondaryColor   ////////////////////////
@@ -278,7 +278,7 @@ namespace WPF_Neumorphism_Plus
                 "SecondaryColor",
                 typeof(Color),
                 typeof(Neumorphism_Plus_Shader),
-                new UIPropertyMetadata(Colors.Pink, PixelShaderConstantCallback(5))
+                new UIPropertyMetadata(Colors.White, PixelShaderConstantCallback(5))
             );
 
         ////////////////////////   Inset   ////////////////////////
