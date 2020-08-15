@@ -27,14 +27,24 @@ float profileFunc(float x)
         return (1 + cos(x * 3.1415926)) / 2;
 }
 
+float3 adjustShadowRatio(float ratio1, float ratio2)
+{
+    float3 _return;
+    float transparency = 1 * (1 - ratio1) * (1 - ratio2);
+
+    _return.x = transparency;
+    _return.y = (1 - transparency) * ratio1 / (ratio1 + ratio2);
+    _return.z = (1 - transparency) * ratio2 / (ratio1 + ratio2);
+
+    return _return;
+}
+
 ///     | 1 | 2 | 3 |
 ///     | 4 | 5 | 6 |
 ///     | 7 | 8 | 9 |
 
-float4 outerShadowCalculator(float2 uv :TEXCOORD, float4 ShadowColor, float OffsetDirection) :COLOR
+float outerShadowCalculator(float2 uv :TEXCOORD, float OffsetDirection) : COLOR
 {
-    float4 color = tex2D(Input, uv);
-
     float OuterRatio_X = (abs(OffsetX) + BlurRadius + SpreadRadius) * length(DdxDdy.xy);
     float OuterRatio_Y = (abs(OffsetY) + BlurRadius + SpreadRadius) * length(DdxDdy.zw);
 
@@ -69,11 +79,12 @@ float4 outerShadowCalculator(float2 uv :TEXCOORD, float4 ShadowColor, float Offs
         UnusedPaddingBottom = 1 + 2 * OffsetY * OffsetDirection * length(DdxDdy.zw);
     }
 
+    float addRatio = 0;
+
     if ((uv.x < OuterRatio_X || (1 - OuterRatio_X) < uv.x || uv.y < OuterRatio_Y || (1 - OuterRatio_Y) < uv.y)
         &&
         UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingRight && UnusedPaddingTop < uv.y && uv.y < UnusedPaddingBottom)
     {
-        float addRatio;
         // 1
         if (UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + BlurEffectiveLengthX
             &&
@@ -119,17 +130,19 @@ float4 outerShadowCalculator(float2 uv :TEXCOORD, float4 ShadowColor, float Offs
             &&
             UnusedPaddingBottom - BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom)
                addRatio = profileFunc(sqrt(pow(uv.x - (UnusedPaddingRight - BlurEffectiveLengthX), 2) + pow((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
-        
-        color = color * (1 - addRatio) + ShadowColor * addRatio;
     }
 
-    return color;
+    return addRatio;
 }
 
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
-    float4 color_1 = outerShadowCalculator(uv, PrimaryColor, 1);
-    float4 color_2 = outerShadowCalculator(uv, SecondaryColor, -1);
+    float4 color = tex2D(Input, uv);
 
-    return (color_1 + color_2) / 2;
+    float addRatio_1 = outerShadowCalculator(uv, 1);
+    float addRatio_2 = outerShadowCalculator(uv, -1);
+
+    float3 adjustedRatio = adjustShadowRatio(addRatio_1, addRatio_2);
+
+    return color * adjustedRatio.x + PrimaryColor * adjustedRatio.y + SecondaryColor * adjustedRatio.z;
 }
