@@ -14,6 +14,9 @@ namespace WPF_Neumorphism_Plus
         }
     }
 
+    /// <summary>
+    /// Make shadow of Neumorphism UI
+    /// </summary>
     public class Neumorphism_Plus_Shader : ShaderEffect
     {
         public Neumorphism_Plus_Shader()
@@ -21,6 +24,7 @@ namespace WPF_Neumorphism_Plus
             var pixelShader = new PixelShader();
             try
             {
+                // Load shader effect.
                 string assemblyName = typeof(Neumorphism_Plus_Shader).Assembly.GetName().Name;
                 string uri = "pack://application:,,,/" + assemblyName + ";component/Effect/Effect.ps";
 
@@ -28,14 +32,15 @@ namespace WPF_Neumorphism_Plus
             }
             catch (Exception e)
             {
-                // Show Compile Errors
+                // Show compile errors
                 MessageBox.Show(e.ToString());
                 Environment.Exit(1);
             }
 
             this.PixelShader = pixelShader;
             this.DdxUvDdyUvRegisterIndex = 8;
-
+            
+            // Update each value (required)
             UpdateShaderValue(InputProperty);
             UpdateShaderValue(ShadowOffsetXProperty);
             UpdateShaderValue(ShadowOffsetYProperty);
@@ -61,8 +66,8 @@ namespace WPF_Neumorphism_Plus
 
         ////////////////////////   OffsetX   ////////////////////////
         /// <summary>
-        /// double (default : 0.0)
-        /// The offsetX property of the shadow.
+        /// double (default : 5.0)
+        /// The horizontal offset of the shadow
         /// </summary>
         public double OffsetX
         {
@@ -107,8 +112,8 @@ namespace WPF_Neumorphism_Plus
 
         ///////////////////////   OffsetY   ////////////////////////
         /// <summary>
-        /// double (default : 0.0)
-        /// The offsetY property of the shadow.
+        /// double (default : 3.0)
+        /// The vertical offset of the shadow
         /// </summary>
         public double OffsetY
         {
@@ -154,7 +159,7 @@ namespace WPF_Neumorphism_Plus
         ///////////////////////   BlurRadius   ////////////////////////
         /// <summary>
         /// double (default : 10.0)
-        /// The radius of the shadow's blur effect.
+        /// The radius of the shadow's blur effect
         /// </summary>
         public double BlurRadius
         {
@@ -199,8 +204,8 @@ namespace WPF_Neumorphism_Plus
 
         ///////////////////////   SpreadRadius   ////////////////////////
         /// <summary>
-        /// double (default : 10.0)
-        /// The radius of the shadow's spread effect.
+        /// double (default : 7.0)
+        /// The radius of the shadow's spread effect
         /// </summary>
         public double SpreadRadius
         {
@@ -245,8 +250,8 @@ namespace WPF_Neumorphism_Plus
 
         ////////////////////////   PrimaryColor   ////////////////////////
         /// <summary>
-        /// Color (default : Colors.Pink)
-        /// The primary color of the shadow.
+        /// Color (default : Colors.Black)
+        /// The primary color of the shadow
         /// </summary>
         public Color PrimaryColor
         {
@@ -264,8 +269,8 @@ namespace WPF_Neumorphism_Plus
 
         ////////////////////////   SecondaryColor   ////////////////////////
         /// <summary>
-        /// Color (default : Colors.Pink)
-        /// The secondary color of the shadow.
+        /// Color (default : Colors.White)
+        /// The secondary color of the shadow
         /// </summary>
         public Color SecondaryColor
         {
@@ -284,7 +289,7 @@ namespace WPF_Neumorphism_Plus
         ////////////////////////   Inset   ////////////////////////
         /// <summary>
         /// double (default : 0.0)
-        /// Whether to changes the shadow to one inside the frame.
+        /// Whether to changes the shadow to one inside the border
         /// expected: 0 or 1
         /// </summary>
         public double Inset
