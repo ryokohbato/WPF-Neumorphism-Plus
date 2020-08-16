@@ -38,6 +38,13 @@ float profileFunc(float x)
         return (1 + cos(x * 3.1415926)) / 2;
 }
 
+/**
+* @brief Adjust shadow color and transparency.
+* @param ratio1 The transparency of PrimaryColor.
+* @param ratio2 The transparency of SecondaryCcolor.
+* @return float3 The shadow color.
+* @details The synthesized transparency will be {1 * (1 - ratio1) * (1 - ratio2)}.
+*/
 float3 adjustShadowRatio(float ratio1, float ratio2)
 {
     float3 _return;
@@ -53,6 +60,13 @@ float3 adjustShadowRatio(float ratio1, float ratio2)
 ///     | 1 | 2 | 3 |
 ///     | 4 | 5 | 6 |
 ///     | 7 | 8 | 9 |
+
+/**
+* @brief calculate the transparency of the shadow which is out of border.
+* @param uv The shadow range which includes padding.
+* @param OffsetDirection (Expected: 1 or -1) if this is 1, the offset is the same direction to that of box-shadow (CSS), and if this is -1, they are the opposite direction.
+* @return float The transparency of the shadow.
+*/
 float outerShadowCalculator(float2 uv :TEXCOORD, float OffsetDirection) : COLOR
 {
     float OuterRatio_X = (abs(OffsetX) + BlurRadius + SpreadRadius) * length(DdxDdy.xy);
