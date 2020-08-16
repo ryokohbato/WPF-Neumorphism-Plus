@@ -1,3 +1,9 @@
+/**
+* @file Effect.fx
+* @brief Make Shadow Effect of Neumorphism UI.
+* @author ryokohbato
+*/
+
 sampler2D Input             : register(S0);
 
 float   OffsetX             : register(C0);
@@ -11,6 +17,11 @@ float   RenderingMode       : register(C7);
 
 float4  DdxDdy              : register(C8);
 
+/**
+* @brief Define rendering mode
+* @param x (Expected: 0 <= x <= 1) Indicates the degree how far a point in the shadow is.
+* @return float (Expected: 0 <= x <= 1) Indicates the degree how strongly the shadow will be weakend.
+*/
 float profileFunc(float x)
 {
     if (1 < x)
@@ -30,7 +41,6 @@ float profileFunc(float x)
 ///     | 1 | 2 | 3 |
 ///     | 4 | 5 | 6 |
 ///     | 7 | 8 | 9 |
-
 float4 outerShadowCalculator(float2 uv :TEXCOORD, float4 ShadowColor, float OffsetDirection) :COLOR
 {
     float4 color = tex2D(Input, uv);
