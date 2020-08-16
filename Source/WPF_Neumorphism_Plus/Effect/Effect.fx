@@ -103,7 +103,7 @@ float outerShadowCalculator(float2 uv :TEXCOORD, float OffsetDirection) : COLOR
         UnusedPaddingBottom = 1 + 2 * OffsetY * OffsetDirection * length(DdxDdy.zw);
     }
 
-    float addRatio = 0;
+    float transparency = 0;
 
     if ((uv.x < OuterRatio_X || (1 - OuterRatio_X) < uv.x || uv.y < OuterRatio_Y || (1 - OuterRatio_Y) < uv.y)
         &&
@@ -113,50 +113,50 @@ float outerShadowCalculator(float2 uv :TEXCOORD, float OffsetDirection) : COLOR
         if (UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + BlurEffectiveLengthX
             &&
             UnusedPaddingTop < uv.y && uv.y < UnusedPaddingTop + BlurEffectiveLengthY)
-                addRatio = profileFunc(sqrt(pow(UnusedPaddingLeft + BlurEffectiveLengthX - uv.x, 2) + pow((UnusedPaddingTop + BlurEffectiveLengthY - uv.y) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
+                transparency = profileFunc(sqrt(pow(UnusedPaddingLeft + BlurEffectiveLengthX - uv.x, 2) + pow((UnusedPaddingTop + BlurEffectiveLengthY - uv.y) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
         // 2
         else if (UnusedPaddingLeft + BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight - BlurEffectiveLengthX
             &&
             UnusedPaddingTop < uv.y && uv.y < UnusedPaddingTop + BlurEffectiveLengthY)
-                addRatio = profileFunc((UnusedPaddingTop + BlurEffectiveLengthY - uv.y) / BlurEffectiveLengthY);
+                transparency = profileFunc((UnusedPaddingTop + BlurEffectiveLengthY - uv.y) / BlurEffectiveLengthY);
         // 3
         else if (UnusedPaddingRight - BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight
             &&
             UnusedPaddingTop < uv.y && uv.y < UnusedPaddingTop + BlurEffectiveLengthY)
-                addRatio = profileFunc(sqrt(pow(uv.x - (UnusedPaddingRight - BlurEffectiveLengthX), 2) + pow((UnusedPaddingTop + BlurEffectiveLengthY - uv.y) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
+                transparency = profileFunc(sqrt(pow(uv.x - (UnusedPaddingRight - BlurEffectiveLengthX), 2) + pow((UnusedPaddingTop + BlurEffectiveLengthY - uv.y) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
         // 4
         else if (UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + BlurEffectiveLengthX
             &&
             UnusedPaddingTop + BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom - BlurEffectiveLengthY)
-                addRatio = profileFunc((UnusedPaddingLeft + BlurEffectiveLengthX - uv.x) / BlurEffectiveLengthX);
+                transparency = profileFunc((UnusedPaddingLeft + BlurEffectiveLengthX - uv.x) / BlurEffectiveLengthX);
         // 5
         else if (UnusedPaddingLeft + BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight - BlurEffectiveLengthX
             &&
             UnusedPaddingTop + BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom - BlurEffectiveLengthY)
-                addRatio = 1;
+                transparency = 1;
         // 6
         else if (UnusedPaddingRight - BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight
             &&
             UnusedPaddingTop + BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom - BlurEffectiveLengthY)
-                addRatio = profileFunc((uv.x - (UnusedPaddingRight - BlurEffectiveLengthX)) / BlurEffectiveLengthX);
+                transparency = profileFunc((uv.x - (UnusedPaddingRight - BlurEffectiveLengthX)) / BlurEffectiveLengthX);
         // 7
         else if (UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + BlurEffectiveLengthX
             &&
             UnusedPaddingBottom - BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom)
-                addRatio = profileFunc(sqrt(pow(UnusedPaddingLeft + BlurEffectiveLengthX - uv.x, 2) + pow((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
+                transparency = profileFunc(sqrt(pow(UnusedPaddingLeft + BlurEffectiveLengthX - uv.x, 2) + pow((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
         // 8
         else if (UnusedPaddingLeft + BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight - BlurEffectiveLengthX
             &&
             UnusedPaddingBottom - BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom)
-                addRatio = profileFunc((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) / BlurEffectiveLengthY);
+                transparency = profileFunc((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) / BlurEffectiveLengthY);
         // 9
         else if (UnusedPaddingRight - BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight
             &&
             UnusedPaddingBottom - BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom)
-               addRatio = profileFunc(sqrt(pow(uv.x - (UnusedPaddingRight - BlurEffectiveLengthX), 2) + pow((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
+               transparency = profileFunc(sqrt(pow(uv.x - (UnusedPaddingRight - BlurEffectiveLengthX), 2) + pow((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
     }
 
-    return addRatio;
+    return transparency;
 }
 
 float4 main(float2 uv : TEXCOORD) : COLOR
