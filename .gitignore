@@ -4,6 +4,8 @@ Source/.vs
 Source/WPF_Neumorphism_Plus/obj/
 Source/WPF_Neumorphism_Plus/bin/
 
+Source/WPF_Neumorphism_Plus/Effect/Effect.ps
+
 SampleApp/.vs
 SampleApp/SampleApp/obj/
 SampleApp/SampleApp/bin/
