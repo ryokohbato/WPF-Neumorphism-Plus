@@ -66,7 +66,7 @@ namespace WPF_Neumorphism_Plus
 
         ////////////////////////   OffsetX   ////////////////////////
         /// <summary>
-        /// double (default : 5.0)
+        /// double (default : 7.0)
         /// The horizontal offset of the shadow
         /// </summary>
         public double OffsetX
@@ -80,7 +80,7 @@ namespace WPF_Neumorphism_Plus
                     "OffsetX",
                     typeof(double),
                     typeof(Neumorphism_Plus_Shader),
-                    new UIPropertyMetadata(5.0,
+                    new UIPropertyMetadata(7.0,
                         (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
                         {
                             OffsetXRegisterCallback(d, e);
@@ -112,7 +112,7 @@ namespace WPF_Neumorphism_Plus
 
         ///////////////////////   OffsetY   ////////////////////////
         /// <summary>
-        /// double (default : 3.0)
+        /// double (default : 5.0)
         /// The vertical offset of the shadow
         /// </summary>
         public double OffsetY
@@ -126,7 +126,7 @@ namespace WPF_Neumorphism_Plus
                     "OffsetY",
                     typeof(double),
                     typeof(Neumorphism_Plus_Shader),
-                    new UIPropertyMetadata(3.0,
+                    new UIPropertyMetadata(5.0,
                         (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
                         {
                             OffsetYRegisterCallback(d, e);
@@ -204,7 +204,7 @@ namespace WPF_Neumorphism_Plus
 
         ///////////////////////   SpreadRadius   ////////////////////////
         /// <summary>
-        /// double (default : 7.0)
+        /// double (default : 5.0)
         /// The radius of the shadow's spread effect
         /// </summary>
         public double SpreadRadius
@@ -218,7 +218,7 @@ namespace WPF_Neumorphism_Plus
                     "SpreadRadius",
                     typeof(double),
                     typeof(Neumorphism_Plus_Shader),
-                    new UIPropertyMetadata(7.0,
+                    new UIPropertyMetadata(5.0,
                         (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
                         {
                             SpreadRadiusRegisterCallback(d, e);
@@ -250,7 +250,7 @@ namespace WPF_Neumorphism_Plus
 
         ////////////////////////   PrimaryColor   ////////////////////////
         /// <summary>
-        /// Color (default : Colors.Black)
+        /// Color (default : Colors.Gray)
         /// The primary color of the shadow
         /// </summary>
         public Color PrimaryColor
@@ -264,7 +264,7 @@ namespace WPF_Neumorphism_Plus
                 "PrimaryColor",
                 typeof(Color),
                 typeof(Neumorphism_Plus_Shader),
-                new UIPropertyMetadata(Colors.Black, PixelShaderConstantCallback(4))
+                new UIPropertyMetadata(Colors.Gray, PixelShaderConstantCallback(4))
             );
 
         ////////////////////////   SecondaryColor   ////////////////////////
