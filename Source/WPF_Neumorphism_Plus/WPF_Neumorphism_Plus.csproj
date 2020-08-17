@@ -9,10 +9,10 @@
     <Copyright>(c) 2020 ryokohbato</Copyright>
     <RepositoryUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</RepositoryUrl>
     <PackageTags>wpf ueumorphism shadow ui</PackageTags>
-    <PackageReleaseNotes>skip unnecessary shadow rendering.</PackageReleaseNotes>
+    <PackageReleaseNotes>improve color synthesize</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</PackageProjectUrl>
     <Description>Enjoy Neumorphism on WPF!</Description>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
