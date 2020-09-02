@@ -38,7 +38,7 @@ namespace WPF_Neumorphism_Plus
             }
 
             this.PixelShader = pixelShader;
-            this.DdxUvDdyUvRegisterIndex = 8;
+            this.DdxUvDdyUvRegisterIndex = 9;
             
             // Update each value (required)
             UpdateShaderValue(InputProperty);
@@ -46,6 +46,7 @@ namespace WPF_Neumorphism_Plus
             UpdateShaderValue(ShadowOffsetYProperty);
             UpdateShaderValue(ShadowBlurRadiusProperty);
             UpdateShaderValue(ShadowSpreadRadiusProperty);
+            UpdateShaderValue(ShadowBorderRadiusProperty);
             UpdateShaderValue(ShadowPrimaryColorProperty);
             UpdateShaderValue(ShadowSecondaryColorProperty);
             UpdateShaderValue(ShadowInsetProperty);
@@ -248,6 +249,25 @@ namespace WPF_Neumorphism_Plus
             }
         }
 
+        ///////////////////////   BorderRadius   ////////////////////////
+        /// <summary>
+        /// double (default : 0.0)
+        /// The radius of the border
+        /// </summary>
+        public double BorderRadius
+        {
+            get { return (double)GetValue(ShadowBorderRadiusProperty); }
+            set { SetValue(ShadowBorderRadiusProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShadowBorderRadiusProperty =
+                DependencyProperty.Register(
+                    "BorderRadius",
+                    typeof(double),
+                    typeof(Neumorphism_Plus_Shader),
+                    new UIPropertyMetadata(0.0, PixelShaderConstantCallback(4))
+                );
+
         ////////////////////////   PrimaryColor   ////////////////////////
         /// <summary>
         /// Color (default : Colors.Gray)
@@ -264,7 +284,7 @@ namespace WPF_Neumorphism_Plus
                 "PrimaryColor",
                 typeof(Color),
                 typeof(Neumorphism_Plus_Shader),
-                new UIPropertyMetadata(Colors.Gray, PixelShaderConstantCallback(4))
+                new UIPropertyMetadata(Colors.Gray, PixelShaderConstantCallback(5))
             );
 
         ////////////////////////   SecondaryColor   ////////////////////////
@@ -283,7 +303,7 @@ namespace WPF_Neumorphism_Plus
                 "SecondaryColor",
                 typeof(Color),
                 typeof(Neumorphism_Plus_Shader),
-                new UIPropertyMetadata(Colors.White, PixelShaderConstantCallback(5))
+                new UIPropertyMetadata(Colors.White, PixelShaderConstantCallback(6))
             );
 
         ////////////////////////   Inset   ////////////////////////
@@ -323,7 +343,7 @@ namespace WPF_Neumorphism_Plus
                     })
             );
 
-        static readonly PropertyChangedCallback InsetRegisterCallback = PixelShaderConstantCallback(6);
+        static readonly PropertyChangedCallback InsetRegisterCallback = PixelShaderConstantCallback(7);
 
         protected void OnShadowInsetChanged(double newValue)
         {
@@ -361,7 +381,7 @@ namespace WPF_Neumorphism_Plus
                     "RenderingMode",
                     typeof(double),
                     typeof(Neumorphism_Plus_Shader),
-                    new UIPropertyMetadata(0.0, PixelShaderConstantCallback(7))
+                    new UIPropertyMetadata(0.0, PixelShaderConstantCallback(8))
                 );
     }
 }

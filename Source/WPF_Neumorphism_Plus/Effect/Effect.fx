@@ -10,12 +10,13 @@ float   OffsetX             : register(C0);
 float   OffsetY             : register(C1);
 float   BlurRadius          : register(C2);
 float   SpreadRadius        : register(C3);
-float4  PrimaryColor        : register(C4);
-float4  SecondaryColor      : register(C5);
-float   Inset               : register(C6);
-float   RenderingMode       : register(C7);
+float   BorderRadius        : register(C4);
+float4  PrimaryColor        : register(C5);
+float4  SecondaryColor      : register(C6);
+float   Inset               : register(C7);
+float   RenderingMode       : register(C8);
 
-float4  DdxDdy              : register(C8);
+float4  DdxDdy              : register(C9);
 
 /**
 * @brief Define rendering mode
@@ -25,41 +26,18 @@ float4  DdxDdy              : register(C8);
 float profileFunc(float x)
 {
     if (1 < x)
-        return 0;
-
-    if (x < 0)
         return 1;
 
+    if (x < 0)
+        return 0;
+
     if (RenderingMode == 1)
-        return 1 - x;
+        return x;
     else if (RenderingMode == 2)
-        return (1 + cos(x * 3.1415926)) / 2;
+        return sin(x * 3.1415926 / 2);
     else
-        return (1 + cos(x * 3.1415926)) / 2;
+        return sin(x * 3.1415926 / 2);
 }
-
-/**
-* @brief Adjust shadow color and transparency.
-* @param ratio1 The transparency of PrimaryColor.
-* @param ratio2 The transparency of SecondaryCcolor.
-* @return float3 The shadow color.
-* @details The synthesized transparency will be {1 * (1 - ratio1) * (1 - ratio2)}.
-*/
-float3 adjustShadowRatio(float ratio1, float ratio2)
-{
-    float3 _return;
-    float transparency = 1 * (1 - ratio1) * (1 - ratio2);
-
-    _return.x = transparency;
-    _return.y = (1 - transparency) * ratio1 / (ratio1 + ratio2);
-    _return.z = (1 - transparency) * ratio2 / (ratio1 + ratio2);
-
-    return _return;
-}
-
-///     | 1 | 2 | 3 |
-///     | 4 | 5 | 6 |
-///     | 7 | 8 | 9 |
 
 /**
 * @brief calculate the transparency of the shadow which is out of border.
@@ -69,9 +47,6 @@ float3 adjustShadowRatio(float ratio1, float ratio2)
 */
 float outerShadowCalculator(float2 uv :TEXCOORD, float OffsetDirection) : COLOR
 {
-    float OuterRatio_X = (abs(OffsetX) + BlurRadius + SpreadRadius) * length(DdxDdy.xy);
-    float OuterRatio_Y = (abs(OffsetY) + BlurRadius + SpreadRadius) * length(DdxDdy.zw);
-
     float BlurEffectiveLengthX = 2 * BlurRadius * length(DdxDdy.xy);
     float BlurEffectiveLengthY = 2 * BlurRadius * length(DdxDdy.zw);
     float LengthConverterY2X = length(DdxDdy.xy) / length(DdxDdy.zw);
@@ -103,60 +78,71 @@ float outerShadowCalculator(float2 uv :TEXCOORD, float OffsetDirection) : COLOR
         UnusedPaddingBottom = 1 + 2 * OffsetY * OffsetDirection * length(DdxDdy.zw);
     }
 
-    float transparency = 0;
+    float LeftEdge = abs(OffsetX) * length(DdxDdy.xy) + (BlurRadius + SpreadRadius) * length(DdxDdy.xy);
+    float TopEdge = abs(OffsetY) * length(DdxDdy.zw) + (BlurRadius + SpreadRadius) * length(DdxDdy.zw);
 
-    if ((uv.x < OuterRatio_X || (1 - OuterRatio_X) < uv.x || uv.y < OuterRatio_Y || (1 - OuterRatio_Y) < uv.y)
+    float ShadowBorderX = min(max(BlurEffectiveLengthX, (BlurRadius + SpreadRadius + BorderRadius) * length(DdxDdy.xy)), 0.5 - OffsetX * OffsetDirection * length(DdxDdy.xy));
+    float ShadowBorderY = min(max(BlurEffectiveLengthY, (BlurRadius + SpreadRadius + BorderRadius) * length(DdxDdy.zw)), 0.5 - OffsetY * OffsetDirection * length(DdxDdy.zw));
+
+    float ElmBorderRadiusX = BorderRadius * length(DdxDdy.xy);
+    float ElmBorderRadiusY = BorderRadius * length(DdxDdy.zw);
+
+    if ((UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingRight && UnusedPaddingTop < uv.y && uv.y < UnusedPaddingBottom)
         &&
-        UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingRight && UnusedPaddingTop < uv.y && uv.y < UnusedPaddingBottom)
+        (uv.x < LeftEdge || 1 - LeftEdge < uv.x || uv.y < TopEdge || 1 - TopEdge < uv.y
+            || (pow((LeftEdge + ElmBorderRadiusX - uv.x) / ElmBorderRadiusX, 2) + pow((TopEdge + ElmBorderRadiusY - uv.y) / ElmBorderRadiusY, 2) > 1 && uv.x < LeftEdge + ElmBorderRadiusX && uv.y < TopEdge + ElmBorderRadiusY)
+            || (pow((1 - LeftEdge - ElmBorderRadiusX - uv.x) / ElmBorderRadiusX, 2) + pow((TopEdge + ElmBorderRadiusY - uv.y) / ElmBorderRadiusY, 2) > 1 && 1 - LeftEdge - ElmBorderRadiusX < uv.x && uv.y < TopEdge + ElmBorderRadiusY)
+            || (pow((LeftEdge + ElmBorderRadiusX - uv.x) / ElmBorderRadiusX, 2) + pow((1 - TopEdge - ElmBorderRadiusY - uv.y) / ElmBorderRadiusY, 2) > 1 && uv.x < LeftEdge + ElmBorderRadiusX && 1 - TopEdge - ElmBorderRadiusY < uv.y)
+            || (pow((1 - LeftEdge - ElmBorderRadiusX - uv.x) / ElmBorderRadiusX, 2) + pow((1 - TopEdge - ElmBorderRadiusY - uv.y) / ElmBorderRadiusY, 2) > 1 && 1 - LeftEdge - ElmBorderRadiusX < uv.x && 1 - TopEdge - ElmBorderRadiusY < uv.y)
+        ))
     {
-        // 1
-        if (UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + BlurEffectiveLengthX
+        if ((UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + ShadowBorderX)
             &&
-            UnusedPaddingTop < uv.y && uv.y < UnusedPaddingTop + BlurEffectiveLengthY)
-                transparency = profileFunc(sqrt(pow(UnusedPaddingLeft + BlurEffectiveLengthX - uv.x, 2) + pow((UnusedPaddingTop + BlurEffectiveLengthY - uv.y) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
-        // 2
-        else if (UnusedPaddingLeft + BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight - BlurEffectiveLengthX
+            (UnusedPaddingTop < uv.y && uv.y < UnusedPaddingTop + ShadowBorderY))
+                return profileFunc(1 - sqrt(pow(1 - (uv.x - UnusedPaddingLeft) / ShadowBorderX, 2) + pow(1 - (uv.y - UnusedPaddingTop) / ShadowBorderY, 2)));
+
+        if ((UnusedPaddingLeft + ShadowBorderX < uv.x && uv.x < UnusedPaddingRight - ShadowBorderX)
             &&
-            UnusedPaddingTop < uv.y && uv.y < UnusedPaddingTop + BlurEffectiveLengthY)
-                transparency = profileFunc((UnusedPaddingTop + BlurEffectiveLengthY - uv.y) / BlurEffectiveLengthY);
-        // 3
-        else if (UnusedPaddingRight - BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight
+            (UnusedPaddingTop < uv.y && uv.y < UnusedPaddingTop + ShadowBorderY))
+                return profileFunc((uv.y - UnusedPaddingTop) / ShadowBorderY);
+
+        if ((UnusedPaddingRight - ShadowBorderX < uv.x && uv.x < UnusedPaddingRight)
             &&
-            UnusedPaddingTop < uv.y && uv.y < UnusedPaddingTop + BlurEffectiveLengthY)
-                transparency = profileFunc(sqrt(pow(uv.x - (UnusedPaddingRight - BlurEffectiveLengthX), 2) + pow((UnusedPaddingTop + BlurEffectiveLengthY - uv.y) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
-        // 4
-        else if (UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + BlurEffectiveLengthX
+            (UnusedPaddingTop < uv.y && uv.y < UnusedPaddingTop + ShadowBorderY))
+                return profileFunc(1 - (sqrt(pow(1 - (UnusedPaddingRight - uv.x) / ShadowBorderX, 2) + pow(1 - (uv.y - UnusedPaddingTop) / ShadowBorderY, 2))));
+
+        if ((UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + ShadowBorderX)
             &&
-            UnusedPaddingTop + BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom - BlurEffectiveLengthY)
-                transparency = profileFunc((UnusedPaddingLeft + BlurEffectiveLengthX - uv.x) / BlurEffectiveLengthX);
-        // 5
-        else if (UnusedPaddingLeft + BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight - BlurEffectiveLengthX
+            (UnusedPaddingTop + ShadowBorderY < uv.y && uv.y < UnusedPaddingBottom - ShadowBorderY))
+            return profileFunc((uv.x - UnusedPaddingLeft) / ShadowBorderX);
+
+        if ((UnusedPaddingLeft + ShadowBorderX < uv.x && uv.x < UnusedPaddingRight - ShadowBorderX)
             &&
-            UnusedPaddingTop + BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom - BlurEffectiveLengthY)
-                transparency = 1;
-        // 6
-        else if (UnusedPaddingRight - BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight
+            (UnusedPaddingTop + ShadowBorderY < uv.y && uv.y < UnusedPaddingBottom - ShadowBorderY))
+            return 1;
+
+        if ((UnusedPaddingRight - ShadowBorderX < uv.x && uv.x < UnusedPaddingRight)
             &&
-            UnusedPaddingTop + BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom - BlurEffectiveLengthY)
-                transparency = profileFunc((uv.x - (UnusedPaddingRight - BlurEffectiveLengthX)) / BlurEffectiveLengthX);
-        // 7
-        else if (UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + BlurEffectiveLengthX
+            (UnusedPaddingTop + ShadowBorderY < uv.y && uv.y < UnusedPaddingBottom - ShadowBorderY))
+            return profileFunc((UnusedPaddingRight - uv.x) / ShadowBorderX);
+
+        if ((UnusedPaddingLeft < uv.x && uv.x < UnusedPaddingLeft + ShadowBorderX)
             &&
-            UnusedPaddingBottom - BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom)
-                transparency = profileFunc(sqrt(pow(UnusedPaddingLeft + BlurEffectiveLengthX - uv.x, 2) + pow((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
-        // 8
-        else if (UnusedPaddingLeft + BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight - BlurEffectiveLengthX
+            (UnusedPaddingBottom - ShadowBorderY < uv.y && uv.y < UnusedPaddingBottom))
+            return profileFunc(1 - (sqrt(pow(1 - (uv.x - UnusedPaddingLeft) / ShadowBorderX, 2) + pow(1 - (UnusedPaddingBottom - uv.y) / ShadowBorderY, 2))));
+
+        if ((UnusedPaddingLeft + ShadowBorderX < uv.x && uv.x < UnusedPaddingRight - ShadowBorderX)
             &&
-            UnusedPaddingBottom - BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom)
-                transparency = profileFunc((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) / BlurEffectiveLengthY);
-        // 9
-        else if (UnusedPaddingRight - BlurEffectiveLengthX < uv.x && uv.x < UnusedPaddingRight
+            (UnusedPaddingBottom - ShadowBorderY < uv.y && uv.y < UnusedPaddingBottom))
+            return profileFunc((UnusedPaddingBottom - uv.y) / ShadowBorderY);
+
+        if ((UnusedPaddingRight - ShadowBorderX < uv.x && uv.x < UnusedPaddingRight)
             &&
-            UnusedPaddingBottom - BlurEffectiveLengthY < uv.y && uv.y < UnusedPaddingBottom)
-               transparency = profileFunc(sqrt(pow(uv.x - (UnusedPaddingRight - BlurEffectiveLengthX), 2) + pow((uv.y - (UnusedPaddingBottom - BlurEffectiveLengthY)) * LengthConverterY2X, 2)) / BlurEffectiveLengthX);
+            (UnusedPaddingBottom - ShadowBorderY < uv.y && uv.y < UnusedPaddingBottom))
+            return profileFunc(1 - (sqrt(pow(1 - (UnusedPaddingRight - uv.x) / ShadowBorderX, 2) + pow(1 - (UnusedPaddingBottom - uv.y) / ShadowBorderY, 2))));
     }
 
-    return transparency;
+    return 0;
 }
 
 float4 main(float2 uv : TEXCOORD) : COLOR
@@ -166,7 +152,6 @@ float4 main(float2 uv : TEXCOORD) : COLOR
     float addRatio_1 = outerShadowCalculator(uv, 1);
     float addRatio_2 = outerShadowCalculator(uv, -1);
 
-    float3 adjustedRatio = adjustShadowRatio(addRatio_1, addRatio_2);
-
-    return color * adjustedRatio.x + PrimaryColor * adjustedRatio.y + SecondaryColor * adjustedRatio.z;
+    float4 base = lerp(color, SecondaryColor, addRatio_2);
+    return lerp(base, PrimaryColor, addRatio_1);
 }
