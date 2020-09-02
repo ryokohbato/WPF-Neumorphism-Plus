@@ -12,9 +12,9 @@
     <PackageReleaseNotes>improve color synthesize</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</PackageProjectUrl>
     <Description>Enjoy Neumorphism on WPF!</Description>
-    <Version>1.0.4</Version>
-    <AssemblyVersion>1.0.4.0</AssemblyVersion>
-    <FileVersion>1.0.4.0</FileVersion>
+    <Version>1.0.5</Version>
+    <AssemblyVersion>1.0.5.0</AssemblyVersion>
+    <FileVersion>1.0.5.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
