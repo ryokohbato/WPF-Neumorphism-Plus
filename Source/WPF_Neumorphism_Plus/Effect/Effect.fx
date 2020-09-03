@@ -145,13 +145,31 @@ float outerShadowCalculator(float2 uv :TEXCOORD, float OffsetDirection) : COLOR
     return 0;
 }
 
-float4 main(float2 uv : TEXCOORD) : COLOR
+float4 innerShadowCalculator(float2 uv :TEXCOORD) :COLOR
 {
     float4 color = tex2D(Input, uv);
 
-    float addRatio_1 = outerShadowCalculator(uv, 1);
-    float addRatio_2 = outerShadowCalculator(uv, -1);
+    return color;
+}
 
-    float4 base = lerp(color, SecondaryColor, addRatio_2);
-    return lerp(base, PrimaryColor, addRatio_1);
+float4 main(float2 uv : TEXCOORD) : COLOR
+{
+    float4 color = tex2D(Input, uv);
+    float addRatio_1;
+    float addRatio_2;
+
+    if (Inset == 0)
+    {
+      addRatio_1 = outerShadowCalculator(uv, 1);
+      addRatio_2 = outerShadowCalculator(uv, -1);
+  
+    }
+    else
+    {
+      addRatio_1 = innerShadowCalculator(uv, 1);
+      addRatio_2 = innerShadowCalculator(uv, -1);
+    }
+
+      float4 base = lerp(color, SecondaryColor, addRatio_2);
+      return lerp(base, PrimaryColor, addRatio_1);
 }
