@@ -40,7 +40,7 @@ float profileFunc(float x)
 }
 
 /**
-* @brief calculate the transparency of the shadow which is out of border.
+* @brief Calculate the transparency of the shadow which is out of the border.
 * @param uv The shadow range which includes padding.
 * @param OffsetDirection (Expected: 1 or -1) if this is 1, the offset is the same direction to that of box-shadow (CSS), and if this is -1, they are the opposite direction.
 * @return float The transparency of the shadow.
@@ -239,21 +239,21 @@ float innerShadowCalculator(float2 uv :TEXCOORD, float OffsetDirection) :COLOR
 float4 main(float2 uv : TEXCOORD) : COLOR
 {
     float4 color = tex2D(Input, uv);
-    float addRatio_1;
-    float addRatio_2;
+    float primaryColorRatio;
+    float secondaryColorRatio;
 
     if (Inset == 0)
     {
-      addRatio_1 = outerShadowCalculator(uv, 1);
-      addRatio_2 = outerShadowCalculator(uv, -1);
-  
+      primaryColorRatio = outerShadowCalculator(uv, 1);
+      secondaryColorRatio = outerShadowCalculator(uv, -1);
+
     }
     else
     {
-      addRatio_1 = innerShadowCalculator(uv, 1);
-      addRatio_2 = innerShadowCalculator(uv, -1);
+      primaryColorRatio = innerShadowCalculator(uv, 1);
+      secondaryColorRatio = innerShadowCalculator(uv, -1);
     }
 
-      float4 base = lerp(color, SecondaryColor, addRatio_2);
-      return lerp(base, PrimaryColor, addRatio_1);
+    float4 base = lerp(color, SecondaryColor, secondaryColorRatio);
+    return lerp(base, PrimaryColor, primaryColorRatio);
 }
