@@ -159,7 +159,7 @@ namespace WPF_Neumorphism_Plus
 
         ///////////////////////   BlurRadius   ////////////////////////
         /// <summary>
-        /// double (default : 10.0)
+        /// double (default : 5.0)
         /// The radius of the shadow's blur effect
         /// </summary>
         public double BlurRadius
@@ -173,7 +173,7 @@ namespace WPF_Neumorphism_Plus
                     "BlurRadius",
                     typeof(double),
                     typeof(Neumorphism_Plus_Shader),
-                    new UIPropertyMetadata(10.0,
+                    new UIPropertyMetadata(5.0,
                         (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
                         {
                             BlurRadiusRegisterCallback(d, e);
@@ -205,7 +205,7 @@ namespace WPF_Neumorphism_Plus
 
         ///////////////////////   SpreadRadius   ////////////////////////
         /// <summary>
-        /// double (default : 5.0)
+        /// double (default : 2.0)
         /// The radius of the shadow's spread effect
         /// </summary>
         public double SpreadRadius
@@ -219,7 +219,7 @@ namespace WPF_Neumorphism_Plus
                     "SpreadRadius",
                     typeof(double),
                     typeof(Neumorphism_Plus_Shader),
-                    new UIPropertyMetadata(5.0,
+                    new UIPropertyMetadata(2.0,
                         (DependencyObject d, DependencyPropertyChangedEventArgs e) =>
                         {
                             SpreadRadiusRegisterCallback(d, e);
@@ -270,7 +270,7 @@ namespace WPF_Neumorphism_Plus
 
         ////////////////////////   PrimaryColor   ////////////////////////
         /// <summary>
-        /// Color (default : Colors.Gray)
+        /// Color (default : Colors.Silver)
         /// The primary color of the shadow
         /// </summary>
         public Color PrimaryColor
@@ -284,12 +284,12 @@ namespace WPF_Neumorphism_Plus
                 "PrimaryColor",
                 typeof(Color),
                 typeof(Neumorphism_Plus_Shader),
-                new UIPropertyMetadata(Colors.Gray, PixelShaderConstantCallback(5))
+                new UIPropertyMetadata(Colors.Silver, PixelShaderConstantCallback(5))
             );
 
         ////////////////////////   SecondaryColor   ////////////////////////
         /// <summary>
-        /// Color (default : Colors.White)
+        /// Color (default : Colors.WhiteSmoke)
         /// The secondary color of the shadow
         /// </summary>
         public Color SecondaryColor
@@ -303,7 +303,7 @@ namespace WPF_Neumorphism_Plus
                 "SecondaryColor",
                 typeof(Color),
                 typeof(Neumorphism_Plus_Shader),
-                new UIPropertyMetadata(Colors.White, PixelShaderConstantCallback(6))
+                new UIPropertyMetadata(Colors.WhiteSmoke, PixelShaderConstantCallback(6))
             );
 
         ////////////////////////   Inset   ////////////////////////
