@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WPF_Neumorphism_Plus" Version="1.0.0" />
+    <Resource Include="images\rainy_cloudy.png" />
+    <Resource Include="images\sunny.png" />
+    <Resource Include="images\sunny_cloudy.png" />
+    <Resource Include="images\tokyo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="WPF_Neumorphism_Plus" Version="1.1.0" />
   </ItemGroup>
 
 </Project>

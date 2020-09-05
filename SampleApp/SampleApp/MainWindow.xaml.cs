@@ -24,5 +24,10 @@ namespace SampleApp
         {
             InitializeComponent();
         }
+
+        private void Button_light_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Clicked!", "Sample App", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }

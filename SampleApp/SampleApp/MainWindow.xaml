@@ -6,13 +6,157 @@
         xmlns:local="clr-namespace:SampleApp"
         xmlns:WPF_Neumorphism_Plus="clr-namespace:WPF_Neumorphism_Plus;assembly=WPF_Neumorphism_Plus" x:Class="SampleApp.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FFDDDDDD">
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="82,72,0,0" VerticalAlignment="Top" Height="119" Width="223" BorderBrush="#FFDDDDDD">
-            <Button.Effect>
-                <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader PrimaryColor="Black" OffsetX="3" OffsetY="2" SecondaryColor="#77FFFFFF" RenderingMode="0"/>
-            </Button.Effect>
-        </Button>
+        <Grid.Resources>
+            <Style x:Key="NeumorphismStyle_dark" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Grid.Effect>
+                                    <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader BorderRadius="100" BlurRadius="3" OffsetX="7" OffsetY="5" SpreadRadius="7"
+                                            PrimaryColor="#FF000000" SecondaryColor="#FF666666"/>
+                                </Grid.Effect>
+                                <Rectangle Fill="{TemplateBinding Background}" RadiusX="100" RadiusY="100"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style x:Key="NeumorphismStyle_light" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Grid.Effect>
+                                    <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader BorderRadius="25" BlurRadius="5" OffsetX="7" OffsetY="5" SpreadRadius="2"
+                                            PrimaryColor="Silver" SecondaryColor="WhiteSmoke"/>
+                                </Grid.Effect>
+                                <Rectangle Fill="{TemplateBinding Background}" RadiusX="25" RadiusY="25"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Grid.Effect>
+                                            <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader BorderRadius="25" BlurRadius="7" OffsetX="5" OffsetY="3" SpreadRadius="0"
+                                            PrimaryColor="Silver" SecondaryColor="WhiteSmoke" Inset="1"/>
+                                        </Grid.Effect>
+                                        <Rectangle Fill="{TemplateBinding Background}" RadiusX="25" RadiusY="25"/>
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="NeumorphismStyle_light2" TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Rectangle Fill="{TemplateBinding Background}" Width="200" Height="200" RadiusX="100" RadiusY="100">
+                                    <Rectangle.Effect>
+                                        <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader BorderRadius="100" BlurRadius="5" OffsetX="7" OffsetY="5" SpreadRadius="2"
+                                            PrimaryColor="#FFD8D8D8" SecondaryColor="#FFEEEEEE" Inset="1"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <Rectangle Fill="{TemplateBinding Background}" Width="150" Height="150" RadiusX="75" RadiusY="75">
+                                    <Rectangle.Effect>
+                                        <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader BorderRadius="75" BlurRadius="5" OffsetX="7" OffsetY="5" SpreadRadius="2"
+                                            PrimaryColor="#FFB7B7B7" SecondaryColor="#FFF7F7F7"/>
+                                    </Rectangle.Effect>
+                                </Rectangle>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+
+        <TabControl>
+            <TabItem Header="Dark">
+                <Grid Background="#FF333333">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="Button_dark" Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" Style="{StaticResource NeumorphismStyle_dark}" Foreground="White" Background="#FF333333"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="200"/>
+                    <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" CornerRadius="95" Width="190" Height="190" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border.Background>
+                            <ImageBrush ImageSource="images/tokyo.jpg"></ImageBrush>
+                        </Border.Background>
+                    </Border>
+
+                    <Label Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="6">
+                        <Label.Effect>
+                            <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader BorderRadius="20" BlurRadius="3" OffsetX="5" OffsetY="3" SpreadRadius="3"
+                                            PrimaryColor="#FF000000" SecondaryColor="#FF666666"/>
+                        </Label.Effect>
+                    </Label>
+
+                    <TextBlock Grid.Column="0" Grid.Row="5" Text="Tokyo, Japan" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="9/6" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Grid.Column="3" Grid.Row="1" Text="9/7" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Grid.Column="4" Grid.Row="1" Text="9/8" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Grid.Column="2" Grid.Row="4" Text="9/9" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Grid.Column="3" Grid.Row="4" Text="9/10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Grid.Column="4" Grid.Row="4" Text="9/11" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+
+                    <Image Source="images/rainy_cloudy.png" Grid.Column="2" Grid.Row="2"></Image>
+                    <Image Source="images/rainy_cloudy.png" Grid.Column="3" Grid.Row="2"></Image>
+                    <Image Source="images/sunny_cloudy.png" Grid.Column="4" Grid.Row="2"></Image>
+                    <Image Source="images/sunny.png" Grid.Column="2" Grid.Row="5" Grid.RowSpan="2"></Image>
+                    <Image Source="images/sunny_cloudy.png" Grid.Column="3" Grid.Row="5" Grid.RowSpan="2"></Image>
+                    <Image Source="images/sunny.png" Grid.Column="4" Grid.Row="5" Grid.RowSpan="2"></Image>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Light">
+                <Grid  Background="#FFE3E3E3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button x:Name="Button_light" Grid.Column="0" Style="{StaticResource NeumorphismStyle_light}" Content="Click Me!" Background="#FFE3E3E3"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Height="145" Width="248" Click="Button_light_Click"/>
+
+                    <Button x:Name="Button_light2" Grid.Column="1" Style="{StaticResource NeumorphismStyle_light2}" Content="" Background="#FFE3E3E3"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="200">
+                    </Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
     </Grid>
 </Window>
