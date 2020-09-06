@@ -12,9 +12,9 @@
     <PackageReleaseNotes>Inset shadow implemented.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</PackageProjectUrl>
     <Description>Enjoy Neumorphism on WPF!</Description>
-    <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.1</Version>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
     <PackageIcon>icon_20200906.png</PackageIcon>
   </PropertyGroup>
 
