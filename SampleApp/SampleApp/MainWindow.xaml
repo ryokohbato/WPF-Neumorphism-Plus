@@ -110,9 +110,9 @@
                         <RowDefinition Height="30"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Button x:Name="Button_dark" Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" Style="{StaticResource NeumorphismStyle_dark}" Foreground="White" Background="#FF333333"
+                    <Button x:Name="Button_dark" Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" Style="{StaticResource NeumorphismStyle_dark}" Foreground="White" Background="#FF333333"
                             HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="200"/>
-                    <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="5" CornerRadius="95" Width="190" Height="190" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="6" CornerRadius="95" Width="190" Height="190" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Border.Background>
                             <ImageBrush ImageSource="images/tokyo.jpg"></ImageBrush>
                         </Border.Background>
@@ -125,7 +125,7 @@
                         </Label.Effect>
                     </Label>
 
-                    <TextBlock Grid.Column="0" Grid.Row="5" Text="Tokyo, Japan" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
+                    <TextBlock Grid.Column="0" Grid.Row="6" Text="Tokyo, Japan" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
 
                     <TextBlock Grid.Column="2" Grid.Row="1" Text="9/6" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
                     <TextBlock Grid.Column="3" Grid.Row="1" Text="9/7" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
