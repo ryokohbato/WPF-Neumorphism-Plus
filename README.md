@@ -1,10 +1,11 @@
-![icon](./docs/images/header.png)
+[![icon](./docs/images/header.png)](https://www.nuget.org/packages/WPF_Neumorphism_Plus/)
 
 # WPF-Neumorphism-Plus
 
 [![nuget](https://img.shields.io/nuget/v/WPF_Neumorphism_Plus?style=flat)](https://www.nuget.org/packages/WPF_Neumorphism_Plus/)
 
-**WPF-Neumorphism-Plus** is a library for Neumorphism UI in WPF.
+**WPF-Neumorphism-Plus** is a library for Neumorphism UI in WPF.  
+- [WPF-Neumorphism-Plus - NuGet](https://www.nuget.org/packages/WPF_Neumorphism_Plus/)
 
 ## DEMO
 
