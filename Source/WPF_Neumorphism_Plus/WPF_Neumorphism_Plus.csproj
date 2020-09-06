@@ -8,7 +8,7 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>(c) 2020 ryokohbato</Copyright>
     <RepositoryUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</RepositoryUrl>
-    <PackageTags>wpf ueumorphism shadow ui</PackageTags>
+    <PackageTags>wpf neumorphism shadow ui</PackageTags>
     <PackageReleaseNotes>Inset shadow implemented.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</PackageProjectUrl>
     <Description>Enjoy Neumorphism on WPF!</Description>
