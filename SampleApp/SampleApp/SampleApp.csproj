@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="WPF_Neumorphism_Plus" Version="1.1.0" />
+    <PackageReference Include="WPF_Neumorphism_Plus" Version="1.1.2" />
   </ItemGroup>
 
 </Project>
