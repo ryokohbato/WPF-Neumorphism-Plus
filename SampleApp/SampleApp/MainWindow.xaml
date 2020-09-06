@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SampleApp"
         xmlns:WPF_Neumorphism_Plus="clr-namespace:WPF_Neumorphism_Plus;assembly=WPF_Neumorphism_Plus" x:Class="SampleApp.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Sample App" Height="450" Width="800">
     <Grid>
         <Grid.Resources>
             <Style x:Key="NeumorphismStyle_dark" TargetType="Button">
@@ -106,6 +106,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>
                     </Grid.RowDefinitions>
 
@@ -117,7 +118,7 @@
                         </Border.Background>
                     </Border>
 
-                    <Label Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="6">
+                    <Label Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" Grid.RowSpan="7">
                         <Label.Effect>
                             <WPF_Neumorphism_Plus:Neumorphism_Plus_Shader BorderRadius="20" BlurRadius="3" OffsetX="5" OffsetY="3" SpreadRadius="3"
                                             PrimaryColor="#FF000000" SecondaryColor="#FF666666"/>
