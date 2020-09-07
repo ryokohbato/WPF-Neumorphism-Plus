@@ -59,7 +59,7 @@ The default style looks like this.
 
 You can specify the direction, size and color of the shadow by specifying the options.
 
-For more information on how to use it, please see here.
+For more information on how to use it, please see [here](https://ryokohbato.github.io/WPF-Neumorphism-Plus/).
 
 ------------------------------
 
