@@ -95,6 +95,7 @@ The element is expanded by the SpreadRadius width. Then it is blurred inside and
 - When Inset is 1
 The element is reduced by the width of the SpreadRadius. Then it is blurred inside and outside by the width of the BlurRadius, respectively. This means that the length affected by the blur is twice as long as the BlurRadius. The shadow radius is the larger of (BorderRadius) or (BlurRadius + SpreadRadius).
 
+![how to draw shadows](./images/shadowRendering.png)
 
 ## How to create a standard Neumorphism UI with WPF-Neumorphism-Plus
 
