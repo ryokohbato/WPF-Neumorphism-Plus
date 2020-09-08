@@ -9,8 +9,8 @@
 
 ## DEMO
 
-![screenshot_01](./docs/images/screenshot_01.png)
-![screenshot_02](./docs/images/screenshot_02.png)
+![screenshot_01](./docs/images/screenshot_light.gif)
+![screenshot_02](./docs/images/screenshot_dark.png)
 
 Sample code for this app can be found [here](https://github.com/ryokohbato/WPF-Neumorphism-Plus/tree/master/SampleApp).
 
