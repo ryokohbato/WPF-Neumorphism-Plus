@@ -20,7 +20,13 @@ This library allows you to implement a Neumorphism UI as an effect on any elemen
 
 ## Requirement
 
-- .NET Framework 4.x, .NET Core 3.1  
+### .NET
+
+- .NET Framework 4.x
+- .NET Core 3.1
+
+### OS
+
 - Windows
 
 ## Installation
@@ -69,4 +75,4 @@ ryokohbato
 
 ## License
 
-**WPF-Neumorphism-Plus** is under [MIT license](https://opensource.org/licenses/MIT).
+**WPF-Neumorphism-Plus** is under [MIT License](https://opensource.org/licenses/MIT).
