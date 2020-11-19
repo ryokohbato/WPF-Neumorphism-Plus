@@ -6,9 +6,11 @@
 
 **WPF-Neumorphism-Plus** is a library for Neumorphism UI in WPF.  
 
-- Download >> [WPF-Neumorphism-Plus - NuGet](https://www.nuget.org/packages/WPF_Neumorphism_Plus/)
+- [QuickStart](https://ryokohbato.github.io/WPF-Neumorphism-Plus/#how-to-create-a-standard-neumorphism-ui-with-wpf-neumorphism-plus)
 
-- Document >> [WPF-Neumorphism-Plus | A NuGet Library to make Neumorphism UI on WPF (C#)](https://ryokohbato.github.io/WPF-Neumorphism-Plus/)
+- [Download](https://www.nuget.org/packages/WPF_Neumorphism_Plus/)
+
+- [Document](https://ryokohbato.github.io/WPF-Neumorphism-Plus/)
 
 ## DEMO
 
