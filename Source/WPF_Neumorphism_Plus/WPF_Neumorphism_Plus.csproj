@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>net40;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;net40;netcoreapp3.1</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Company />
     <Authors>ryokohbato</Authors>
@@ -9,12 +9,12 @@
     <Copyright>(c) 2020 ryokohbato</Copyright>
     <RepositoryUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</RepositoryUrl>
     <PackageTags>wpf neumorphism shadow ui</PackageTags>
-    <PackageReleaseNotes>Multi-Platform support</PackageReleaseNotes>
+    <PackageReleaseNotes>.NET5 support</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/ryokohbato/WPF-Neumorphism-Plus</PackageProjectUrl>
     <Description>Enjoy Neumorphism on WPF!</Description>
-    <Version>1.1.3</Version>
-    <AssemblyVersion>1.1.3</AssemblyVersion>
-    <FileVersion>1.1.3</FileVersion>
+    <Version>1.1.4</Version>
+    <AssemblyVersion>1.1.4</AssemblyVersion>
+    <FileVersion>1.1.4</FileVersion>
     <PackageIcon>icon_20200906.png</PackageIcon>
   </PropertyGroup>
 
