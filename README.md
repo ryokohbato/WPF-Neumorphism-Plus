@@ -27,6 +27,7 @@ This library allows you to implement a Neumorphism UI as an effect on any elemen
 
 ### .NET
 
+- .NET 5
 - .NET Framework 4.x
 - .NET Core 3.1
 
